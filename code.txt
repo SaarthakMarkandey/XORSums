@@ -1,0 +1,63 @@
+#include <iostream>
+#include <vector>
+#define lli long long int
+#include<bits/stdc++.h>
+using namespace std;
+
+
+long long int sumXOR (vector <lli>arr)
+{
+  long long int sum = arr[0];
+  for (lli i = 1; i < arr.size (); i++)
+    {
+      sum = sum ^ arr[i];
+    }
+
+  return sum;
+}
+
+int
+main ()
+{
+  lli N;
+  cin >> N;
+  lli n[N];
+  lli sum1 = 0;
+  for (lli i = 0; i < N; i++)
+    {
+      cin >> n[i];
+      sum1 += n[i];
+    }
+  int Q, M;
+  cin >> Q;
+  lli sum;
+  while (Q--){
+      cin >> M;
+      if (M != 1){
+    	  sum = 0;
+    	  unsigned lli opsize = pow (2, N);
+    	  vector < lli >sub;
+
+	  for (unsigned lli counter = 0; counter < opsize; counter++){
+	      for (int j = 0; j < N; j++){
+    		  if (counter & (1 << j))
+    		    sub.push_back (n[j]);
+	        }
+	      if (sub.size () > 1 && sub.size () <= M){
+    		  sum += sumXOR (sub);
+    		  
+		   }
+	      sub.clear ();
+	    }
+	  sum += sum1;
+	  
+	}
+      else{
+	  sum = sum1;
+	  
+	  
+	}
+      cout << sum%998244353 << "\n";
+    }
+  return 0;
+}
